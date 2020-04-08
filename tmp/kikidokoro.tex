@@ -1,0 +1,93 @@
+%%
+%%  相対論的物理学のききどころ
+%%
+
+
+%% typeset: lualatex
+\documentclass{ltjsbook}
+
+\usepackage{hyperref}
+\hypersetup{
+  % pdfusetitle, % derive the values for pdftitle and pdfauthor from \title and \author
+  pdftitle={相対論的物理学のききどころ},
+  pdfauthor={和田純夫},
+  pdfsubject={物理講義のききどころ6},
+  % pdfcreator={creator: unko},
+  % pdfproducer={producer: unko},
+  pdfkeywords={教科書, 専門書, 物理学, 相対論},
+  bookmarksopen, % open up bookmark tree
+}
+\usepackage{bookmark}
+\usepackage{pdfpages}
+
+%% enter pdf name
+\newcommand\pdfName{kikidokoro.pdf}
+% \newcommand\pdfName{3000083652-1.pdf}
+
+%% enter front page num
+\newcommand\noPages{8} % 表紙からページ番号が始まる(front)までのページ数
+\newcommand\frontPages{14} % frontのページ数
+
+%%%% - - - - - macros - - - - - %%%%
+%% set pages
+\newcommand\beginFrontPage{\the\numexpr \noPages+1\relax} % frontの開始ページ
+\newcommand\lastFrontPage{\the\numexpr \noPages+\frontPages\relax} % frontの終わりページ
+\newcommand\beginMainPage{\the\numexpr \lastFrontPage+1\relax} % mainの開始ページ
+
+%% Usage: \mainbookmark{level}{page}{title}
+\newcommand\frontbookmark[3]{%
+  \edef\temp{\noexpand\bookmark[page=\the\numexpr \noPages+#2\relax,level=#1]}%
+  \temp{#3}%
+}
+\newcommand\mainbookmark[3]{%
+  \edef\temp{\noexpand\bookmark[page=\the\numexpr \lastFrontPage+#2\relax,level=#1]}%
+  \temp{#3}%
+}
+%%%% - - - - - - - - - - - - - - %%%%
+
+\begin{document}
+
+%% include pdf
+\pagenumbering{Roman}
+\includepdf[pages=1-\noPages,fitpaper]{\pdfName}
+\pagenumbering{roman}
+\includepdf[pages=\beginFrontPage-\lastFrontPage,fitpaper]{\pdfName}
+\pagenumbering{arabic}
+\includepdf[pages=\beginMainPage-,fitpaper]{\pdfName}
+
+%%
+%% make bookmark
+%%
+\bookmark[level=2,page=1]{表紙（カバー）}
+%% front
+\frontbookmark{0}{1}{表紙}
+\frontbookmark{0}{5}{はじめに}
+\frontbookmark{0}{7}{この本の使い方}
+\frontbookmark{0}{11}{目次}
+%% main
+\mainbookmark{0}{1}{第I部 特殊相対論}
+  \mainbookmark{1}{1}{1 特殊相対論の時空}
+    % \mainbookmark{2}{2}{1.1 光速度不変性}
+    % \mainbookmark{2}{4}{1.2 事象の同時性}
+    % \mainbookmark{2}{6}{1.3 ローレンツ変換}
+  \mainbookmark{1}{23}{2 特殊相対論と力学}
+  \mainbookmark{1}{37}{3 特殊相対論と電磁気学}
+\mainbookmark{0}{57}{第II部 相対論的量子論と素粒子論}
+  \mainbookmark{1}{57}{4 相対論的量子力学}
+  \mainbookmark{1}{79}{5 相対論的場の量子論}
+  \mainbookmark{1}{99}{6 素粒子物理学と統一理論}
+\mainbookmark{0}{113}{第III部 一般相対論と宇宙論}
+  \mainbookmark{1}{113}{7 一般相対論}
+  \mainbookmark{1}{135}{8 宇宙論}
+\mainbookmark{0}{155}{さらに学習を進める人のために}
+\mainbookmark{0}{157}{章末問題解答}
+\mainbookmark{0}{171}{索引}
+\mainbookmark{0}{175}{奥付}
+% ...
+\end{document}
+
+%% hyperref.sty のしおり出力コマンド
+% \pdfbookmark[0]{section!!!!}{labell}%%
+% \pdfbookmark[1]{sub}{labelll}%%
+
+% \texorpdfstring{TEXstring}{PDFstring}
