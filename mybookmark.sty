@@ -1,0 +1,58 @@
+%%
+%% macros for make pdf bookmarks
+%%
+
+\newcommand\pdfName[1]{\renewcommand\@pdfName{#1}}
+\newcommand\@pdfName{}
+% \newcommand\@pdfName{\@latex@error{No \noexpand\pdfName given}\@ehc}
+
+\newcommand\noPages[1]{\renewcommand\@noPages{#1}}
+\newcommand\@noPages{0}
+
+\newcommand\frontPages[1]{\renewcommand\@frontPages{#1}}
+\newcommand\@frontPages{0}
+
+\newif\ifFinalPage
+\FinalPagefalse
+\newcommand\finalPage[1]{
+  \renewcommand\@finalPage{#1}
+  \FinalPagetrue
+}
+\newcommand\@finalPage{}
+
+%% set pages
+\newcommand\beginFrontPage{\the\numexpr \@noPages+1\relax} % frontの開始ページ
+\newcommand\lastFrontPage{\the\numexpr \@noPages+\@frontPages\relax} % frontの終わりページ
+\newcommand\beginMainPage{\the\numexpr \lastFrontPage+1\relax} % mainの開始ページ
+
+%% Usage: \mainbookmark{level}{page}{title}
+\newcommand\frontbookmark[3]{%
+  \edef\temp{\noexpand\bookmark[page=\the\numexpr \@noPages+#2\relax,level=#1]}%
+  \temp{#3}%
+}
+\newcommand\mainbookmark[3]{%
+  \edef\temp{\noexpand\bookmark[page=\the\numexpr \lastFrontPage+#2\relax,level=#1]}%
+  \temp{#3}%
+}
+
+\newcommand\makePages{
+  %% include no numbering pages
+  \ifnum \@noPages > 1%
+    \pagenumbering{Roman}%
+    \includepdf[pages=1-\@noPages,fitpaper]{\@pdfName}%
+  \fi
+  %% include front pages
+  \ifnum \@frontPages > 1%
+    \pagenumbering{roman}
+    \includepdf[pages=\beginFrontPage-\lastFrontPage,fitpaper]{\@pdfName}
+  \fi
+  %% include main pages
+  \pagenumbering{arabic}
+  \ifFinalPage
+    %% \finalPage まで読み込む
+    \includepdf[pages=\beginMainPage-\@finalPage,fitpaper]{\@pdfName}
+  \else
+    %% 最後のpageまで読み込む
+    \includepdf[pages=\beginMainPage-,fitpaper]{\@pdfName}
+  \fi
+}
