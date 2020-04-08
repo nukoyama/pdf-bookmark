@@ -1,0 +1,69 @@
+%%
+%%  make bookmark template
+%%
+
+%% typeset: use lualatex
+\documentclass{ltjsbook}
+% \documentclass[uplatex,dvipdfmx]{jsbook}
+
+\usepackage{hyperref}
+\hypersetup{
+  % pdfusetitle, % derive the values for pdftitle and pdfauthor from \title and \author
+  pdftitle={HTML5 \& CSS3 デザイン 現場の新標準ガイド},
+  pdfauthor={エビスコム},
+  % pdfsubject={},
+  % pdfcreator={},
+  % pdfproducer={},
+  % pdfkeywords={},
+  bookmarksopen, % open up bookmark tree
+}
+\usepackage{bookmark}
+\usepackage{pdfpages}
+
+\usepackage{mybookmark}
+
+%% enter pdf name
+\pdfName{unlock.pdf}
+
+%% enter front page num
+\noPages{0}      % 表紙からページ番号が始まる(front)までのページ数
+\frontPages{2}   % frontのページ数
+% \finalPage{15} % if no need, please comment out
+
+\begin{document}
+
+%% include pdf, and make page numbers
+\makePages
+
+%% -- make bookmark --
+
+%% front of front
+\bookmark[level=2,page=1]{表紙（カバー）}
+
+%% front
+% \frontbookmark{0}{1}{表紙}
+
+%% main
+\mainbookmark{0}{1}{表紙}
+\mainbookmark{0}{3}{はじめに}
+\mainbookmark{0}{4}{CONTENTS}
+\mainbookmark{0}{11}{1 HTML}
+\mainbookmark{0}{23}{2 Webページの作成とメタデータ}
+\mainbookmark{0}{55}{3 コンテンツのマークアップ}
+\mainbookmark{0}{107}{4 CSSの適用}
+\mainbookmark{0}{141}{5 ボックスのレイアウト}
+\mainbookmark{0}{201}{6 フレキシブルボックスレイアウト}
+\mainbookmark{0}{217}{7 グリッドレイアウト}
+\mainbookmark{0}{243}{8 テーブル}
+\mainbookmark{0}{255}{9 テキスト}
+\mainbookmark{0}{299}{10 エンベディッド・コンテンツ}
+\mainbookmark{0}{325}{11 フォーム}
+\mainbookmark{0}{341}{12 特殊効果}
+\mainbookmark{0}{360}{CSS APPENDIX}
+\mainbookmark{0}{362}{INDEX}
+\mainbookmark{0}{368}{奥付}
+
+% \mainbookmark{0}{}{}
+
+\end{document}
+%% EOF
