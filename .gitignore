@@ -2,6 +2,7 @@
 
 /*.pdf
 /src/*
+/unlocked/*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
