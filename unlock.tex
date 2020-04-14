@@ -14,18 +14,51 @@
 \usepackage{pdfpages}
 
 %% enter pdf name
-\newcommand\pdfName{src/3000083652-3.pdf}
+\newcommand\pdfName{src/3000025488}
+% \newcommand\pdfName{src/}
+% \newcommand\pdfName{src/}
+
+
+
+
+
+\newcommand\incExistPDF[1]{
+  % \newcommand\ExistPDFname{\pdfName#1.pdf}
+  \IfFileExists{#1}{
+    \includepdf[pages=1-,fitpaper]{#1}
+  }{}
+}
 
 \begin{document}
 
 %% include pdf
-\includepdf[pages=1-,fitpaper]{src/3000083652-1.pdf}
-\includepdf[pages=1-,fitpaper]{src/3000083652-2.pdf}
-\includepdf[pages=1-,fitpaper]{src/3000083652-3.pdf}
-\includepdf[pages=1-,fitpaper]{src/3000083652-4.pdf}
-\includepdf[pages=1-,fitpaper]{src/3000083652-5.pdf}
-\includepdf[pages=1-,fitpaper]{src/3000083652-6.pdf}
-\includepdf[pages=1-,fitpaper]{src/3000083652-7.pdf}
+\incExistPDF{\pdfName.pdf}
+\incExistPDF{\pdfName-2.pdf}
+\incExistPDF{\pdfName-3.pdf}
+\incExistPDF{\pdfName-4.pdf}
+\incExistPDF{\pdfName-5.pdf}
+\incExistPDF{\pdfName-6.pdf}
+\incExistPDF{\pdfName-7.pdf}
+\incExistPDF{\pdfName-8.pdf}
+\incExistPDF{\pdfName-9.pdf}
+\incExistPDF{\pdfName-10.pdf}
+% \incExistPDF{\pdfName-11.pdf}
+% \incExistPDF{\pdfName-12.pdf}
+% \incExistPDF{\pdfName-13.pdf}
+% \incExistPDF{\pdfName-14.pdf}
+% \incExistPDF{\pdfName-15.pdf}
+% \incExistPDF{\pdfName-16.pdf}
+% \incExistPDF{\pdfName-17.pdf}
+% \incExistPDF{\pdfName-18.pdf}
+% \incExistPDF{\pdfName-19.pdf}
+% \incExistPDF{\pdfName-20.pdf}
+
+% \includepdf[pages=1-,fitpaper]{\pdfName-2.pdf}
+% \includepdf[pages=1-,fitpaper]{\pdfName-3.pdf}
+% \includepdf[pages=1-,fitpaper]{\pdfName-4.pdf}
+% \includepdf[pages=1-,fitpaper]{\pdfName-5.pdf}
+% \includepdf[pages=1-,fitpaper]{\pdfName-6.pdf}
+% \includepdf[pages=1-,fitpaper]{\pdfName-7.pdf}
 
 \end{document}
 %% EOF
