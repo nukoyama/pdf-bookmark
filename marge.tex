@@ -1,0 +1,40 @@
+%%
+%%  unlock pdf
+%%
+
+%% typeset: use lualatex
+\documentclass{ltjsbook}
+
+% \usepackage{hyperref}
+% \hypersetup{
+%   pdftitle={titile},
+%   pdfauthor={author},
+% }
+% \usepackage{bookmark}
+\usepackage{pdfpages}
+
+%% enter pdf name
+% \newcommand\pdfName{src/3000052304}
+% \newcommand\pdfName{src/3000025494}
+% \newcommand\pdfName{src/3000049523}
+
+
+\newcommand\incExistPDF[1]{
+  % \newcommand\ExistPDFname{\pdfName#1.pdf}
+  \IfFileExists{#1}{
+    \includepdf[pages=1-,fitpaper]{#1}
+  }{}
+}
+
+\begin{document}
+
+%% include pdf
+\incExistPDF{src/1.jpg}
+\incExistPDF{src/2.jpg}
+\incExistPDF{src/marge.pdf}
+\incExistPDF{src/3.jpg}
+\incExistPDF{src/4.jpg}
+
+
+\end{document}
+%% EOF
