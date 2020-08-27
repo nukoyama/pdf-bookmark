@@ -1,0 +1,155 @@
+%%
+%%  make bookmark template
+%%
+
+%% typeset: use lualatex
+\documentclass{ltjsbook}
+% \documentclass[uplatex,dvipdfmx]{jsbook}
+
+\usepackage{hyperref}
+\hypersetup{
+  % pdfusetitle, % derive the values for pdftitle and pdfauthor from \title and \author
+  pdftitle={理論電磁気学 第3版},
+  pdfauthor={砂川重信},
+  % pdfsubject={},
+  % pdfcreator={},
+  % pdfproducer={},
+  pdfkeywords={電磁気学, 砂川},
+  bookmarksopen, % open up bookmark tree
+}
+\usepackage{bookmark}
+\usepackage{pdfpages}
+
+\usepackage{mybookmark}
+
+%% enter pdf name
+\pdfName{src/sngwEM-original_ocr.pdf}
+
+%% enter front page num
+\noPages{6}      % 表紙からページ番号が始まる(front)までのページ数
+\frontPages{10}   % frontのページ数
+% \finalPage{15} % if no need, please comment out
+
+\begin{document}
+
+%% include pdf, and make page numbers
+\makePages
+
+%% -- make bookmark --
+
+%% front of front
+\bookmark[level=1,page=1]{表紙（カバー）}
+\bookmark[level=1,page=5]{表紙}
+
+%% front
+\frontbookmark{1}{7}{目次}
+
+%% main
+\mainbookmark{0}{1}{第1章 真空電磁場の基本法則}
+\mainbookmark{1}{1}{§1 場の概念}
+\mainbookmark{1}{4}{§2 電場と磁場の定義}
+\mainbookmark{1}{6}{§3 Coulombの法則}
+\mainbookmark{1}{14}{§4 Faradayの電磁誘導の法則}
+\mainbookmark{1}{18}{§5 Ampereの法則}
+\mainbookmark{1}{19}{§6 電荷保存則と変位電}
+\mainbookmark{1}{22}{§7 Maxwellの方程式}
+
+\mainbookmark{0}{28}{第2章 Maxwellの方程式の一般的性質}
+\mainbookmark{1}{28}{§1 点電荷と電磁場との共存する体系}
+\mainbookmark{1}{36}{§2 座標変換と時間反転}
+\mainbookmark{1}{44}{§3 電磁ポテンシァルとケージ変換}
+\mainbookmark{1}{51}{§4 エネルギー保存則}
+\mainbookmark{1}{55}{§5 運動量保存則}
+\mainbookmark{1}{61}{[問題]}
+
+\mainbookmark{0}{63}{第3章 静止物体中のMaxwellの方程式}
+\mainbookmark{1}{63}{§1 静止物体中の電磁場}
+\mainbookmark{1}{69}{§2 物質中のMaxwellの方程式}
+\mainbookmark{1}{75}{§3 0hmの法則}
+\mainbookmark{1}{79}{§4 エネルギー保存則}
+\mainbookmark{1}{81}{[問題]}
+
+\mainbookmark{0}{83}{第4章 静電場}
+\mainbookmark{1}{83}{§1 静電場の基本方程}
+\mainbookmark{1}{85}{§2 電荷分布による静電場}
+\mainbookmark{1}{88}{§3 静電場の多重極展開}
+\mainbookmark{1}{92}{§4 静電場のエネルギー}
+\mainbookmark{1}{98}{§5 導体系の静電場}
+\mainbookmark{1}{106}{§6 誘電体中のGaussの法則}
+\mainbookmark{1}{110}{§7 誘電体の境界条件}
+\mainbookmark{1}{112}{§8 境界値問題}
+\mainbookmark{1}{123}{[問題]}
+
+\mainbookmark{0}{127}{第5章 定常電流}
+\mainbookmark{1}{127}{§1 定常電流の基本法則}
+\mainbookmark{1}{128}{§2 定常電流による静磁場の決定}
+\mainbookmark{1}{133}{§3 ベクトル・ポテンシアルの多重極展開}
+\mainbookmark{1}{140}{§4 定常電流による磁場のエネルギー}
+\mainbookmark{1}{142}{§5 定常電流の分布}
+\mainbookmark{1}{147}{§6 Joule熱最小の定理}
+\mainbookmark{1}{150}{[問題]}
+
+\mainbookmark{0}{152}{第6章 静磁場}
+\mainbookmark{1}{152}{§1 静磁場の基本方程式}
+\mainbookmark{1}{154}{§2 永久磁化}
+\mainbookmark{1}{155}{§3 境界条件}
+\mainbookmark{1}{161}{§4 物質の磁性}
+\mainbookmark{1}{167}{[問題]}
+
+\mainbookmark{0}{168}{第7章 準定常電流}
+\mainbookmark{1}{168}{§1 準定常電流の基本法則}
+\mainbookmark{1}{172}{§2 線状回路}
+\mainbookmark{1}{179}{§3 準定常電流の空間的分布}
+\mainbookmark{1}{184}{[問題]}
+
+\mainbookmark{0}{185}{第8章 電磁波}
+\mainbookmark{1}{185}{§1 真空中の電磁波の基本法則}
+\mainbookmark{1}{187}{§2 真空中の電磁波}
+\mainbookmark{1}{198}{§3 誘電体中の電磁波}
+\mainbookmark{1}{210}{§4 電磁波の反射と屈折}
+\mainbookmark{1}{217}{§5 導体中の電磁波}
+\mainbookmark{1}{221}{§6 電磁波の回折}
+\mainbookmark{1}{232}{§7 電磁波の散乱}
+\mainbookmark{1}{248}{[問題]}
+
+\mainbookmark{0}{251}{第9章 電磁波の放射}
+\mainbookmark{1}{251}{§1 遅延ポテンシアルと先進ポテンシアル}
+\mainbookmark{1}{257}{§2 多重極放射}
+\mainbookmark{1}{273}{§3 点電荷による電磁波の放射}
+\mainbookmark{1}{295}{§4 点電荷による電磁波の散乱}
+\mainbookmark{1}{300}{§5 電磁波の放射の反作用}
+\mainbookmark{1}{312}{[問題]}
+
+\mainbookmark{0}{314}{第10章 運動物体の電磁気学一特殊相対論へのあゆみ一}
+\mainbookmark{1}{314}{§1 Hertzの理論}
+\mainbookmark{1}{320}{§2 Galileiの相対性原理}
+\mainbookmark{1}{324}{§3 Hertzの方程式と実験事実との比較}
+\mainbookmark{1}{326}{§4 Lorentzの理論}
+\mainbookmark{1}{340}{§5 Michelson-Morleyの実験}
+\mainbookmark{1}{346}{[問題]}
+
+\mainbookmark{0}{347}{第11章 特殊相対論}
+\mainbookmark{1}{347}{§1 特殊相対論における時間と空間}
+\mainbookmark{1}{365}{§2 Maxwellの方程式のLorentz変換}
+\mainbookmark{1}{373}{§3 テンソルと共変性}
+\mainbookmark{1}{390}{§4 相対性力学}
+\mainbookmark{1}{402}{§5 電磁波の放射の反作用と共変性}
+\mainbookmark{1}{408}{[問題]}
+
+\mainbookmark{0}{410}{第12章 電磁場と変分原理}
+\mainbookmark{1}{410}{§1 古典力学と変分原理}
+\mainbookmark{1}{416}{§2 点電荷と電磁場の共存系}
+
+\mainbookmark{0}{437}{付録A 初等ベクトル解析}
+\mainbookmark{1}{449}{[問題]}
+
+\mainbookmark{0}{451}{付録B 直交関数系}
+
+\mainbookmark{0}{459}{索引}
+
+
+% \mainbookmark{0}{}{}
+% \mainbookmark{1}{}{}
+
+\end{document}
+%% EOF
