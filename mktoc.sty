@@ -1,5 +1,6 @@
 %%
-%%  macros for making TOC (pdf bookmarks)
+%%  This file is 'mktoc.sty'.
+%%  Macros for making TOC (pdf bookmarks)
 %%
 
 \RequirePackage{hyperref}
@@ -25,14 +26,14 @@
 \newcommand\makePages{
   %% ERROR: \pdfName の書き忘れ
   \ifdefined\@pdfName\else
-    \PackageError{mypackage}
+    \PackageError{mktoc}
       {Undefined command `\string\@pdfName'}% error massage
       {Write `\string\pdfName' command to set loading pdf file name}% help text
   \fi
   %% ERROR: file `\@pdfName' does not exist.
   \IfFileExists\@pdfName\relax%
     {
-      \PackageError{mypackage}
+      \PackageError{mktoc}
         {Cannot find file `\@pdfName'}% error massage
         {Enter a correct relative path to pdf file}% help text
     }
@@ -64,7 +65,7 @@
       \fi
     \fi
   \else
-    \PackageWarning{mypackage}{No pages}
+    \PackageWarning{mktoc}{No pages}
   \fi
 }
 
