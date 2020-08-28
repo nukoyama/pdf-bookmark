@@ -1,10 +1,12 @@
 %%
-%% macros for make pdf bookmarks
+%%  macros for making TOC (pdf bookmarks)
 %%
 
-\newcommand\pdfName[1]{\renewcommand\@pdfName{#1}}
-\newcommand\@pdfName{}
-% \newcommand\@pdfName{\@latex@error{No \noexpand\pdfName given}\@ehc}
+\RequirePackage{hyperref}
+\RequirePackage{pdfpages}
+\RequirePackage{bookmark}
+
+\newcommand\pdfName[1]{\newcommand\@pdfName{#1}}
 
 \newcommand\noPages[1]{\renewcommand\@noPages{#1}}
 \newcommand\@noPages{0}
@@ -12,18 +14,59 @@
 \newcommand\frontPages[1]{\renewcommand\@frontPages{#1}}
 \newcommand\@frontPages{0}
 
-\newif\ifFinalPage
-\FinalPagefalse
-\newcommand\finalPage[1]{
-  \renewcommand\@finalPage{#1}
-  \FinalPagetrue
-}
-\newcommand\@finalPage{}
+\newcommand\finalPage[1]{\renewcommand\@finalPage{#1}}
+\newcommand\@finalPage{9999}
 
 %% set pages
 \newcommand\beginFrontPage{\the\numexpr \@noPages+1\relax} % frontの開始ページ
 \newcommand\lastFrontPage{\the\numexpr \@noPages+\@frontPages\relax} % frontの終わりページ
 \newcommand\beginMainPage{\the\numexpr \lastFrontPage+1\relax} % mainの開始ページ
+
+\newcommand\makePages{
+  %% ERROR: \pdfName の書き忘れ
+  \ifdefined\@pdfName\else
+    \PackageError{mypackage}
+      {Undefined command `\string\@pdfName'}% error massage
+      {Write `\string\pdfName' command to set loading pdf file name}% help text
+  \fi
+  %% ERROR: file `\@pdfName' does not exist.
+  \IfFileExists\@pdfName\relax%
+    {
+      \PackageError{mypackage}
+        {Cannot find file `\@pdfName'}% error massage
+        {Enter a correct relative path to pdf file}% help text
+    }
+  %%
+  \ifnum \@finalPage > 0
+    %% include no numbering pages
+    \pagenumbering{Roman}
+    \ifnum \@finalPage < \beginFrontPage
+      \includepdf[pages=1-\@finalPage,fitpaper]{\@pdfName}
+    \else
+      \ifnum \@noPages > 0
+        \includepdf[pages=1-\@noPages,fitpaper]{\@pdfName}
+      \fi
+      %% include front pages
+      \pagenumbering{roman}
+      \ifnum \@finalPage < \lastFrontPage
+        \includepdf[pages=\beginFrontPage-\@finalPage,fitpaper]{\@pdfName}
+      \else
+        \ifnum \@frontPages > 0
+          \includepdf[pages=\beginFrontPage-\lastFrontPage,fitpaper]{\@pdfName}
+        \fi
+        %% include main pages
+        \pagenumbering{arabic}
+        \ifnum \@finalPage < 9999
+          \includepdf[pages=\beginMainPage-\@finalPage,fitpaper]{\@pdfName}
+        \else
+          \includepdf[pages=\beginMainPage-,fitpaper]{\@pdfName}
+        \fi
+      \fi
+    \fi
+  \else
+    \PackageWarning{mypackage}{No pages}
+  \fi
+}
 
 %% Usage: \mainbookmark{level}{page}{title}
 \newcommand\frontbookmark[3]{%
@@ -33,26 +76,4 @@
 \newcommand\mainbookmark[3]{%
   \edef\temp{\noexpand\bookmark[page=\the\numexpr \lastFrontPage+#2\relax,level=#1]}%
   \temp{#3}%
-}
-
-\newcommand\makePages{
-  %% include no numbering pages
-  \ifnum \@noPages > 1%
-    \pagenumbering{Roman}%
-    \includepdf[pages=1-\@noPages,fitpaper]{\@pdfName}%
-  \fi
-  %% include front pages
-  \ifnum \@frontPages > 1%
-    \pagenumbering{roman}
-    \includepdf[pages=\beginFrontPage-\lastFrontPage,fitpaper]{\@pdfName}
-  \fi
-  %% include main pages
-  \pagenumbering{arabic}
-  \ifFinalPage
-    %% \finalPage まで読み込む
-    \includepdf[pages=\beginMainPage-\@finalPage,fitpaper]{\@pdfName}
-  \else
-    %% 最後のpageまで読み込む
-    \includepdf[pages=\beginMainPage-,fitpaper]{\@pdfName}
-  \fi
 }
