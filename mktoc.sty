@@ -7,7 +7,16 @@
 \RequirePackage{pdfpages}
 \RequirePackage{bookmark}
 
-\newcommand\pdfName[1]{\newcommand\@pdfName{#1}}
+\newcommand\pdfName[1]{
+  \newcommand\@pdfName{#1}
+  %% ERROR: file `\@pdfName' does not exist.
+  \IfFileExists\@pdfName\relax%
+  {
+    \PackageError{mktoc}
+      {Cannot find file `\@pdfName'}% error massage
+      {Enter a correct relative path to pdf file}% help text
+  }
+}
 
 \newcommand\noPages[1]{\renewcommand\@noPages{#1}}
 \newcommand\@noPages{0}
@@ -24,48 +33,35 @@
 \newcommand\beginMainPage{\the\numexpr \lastFrontPage+1\relax} % mainの開始ページ
 
 \newcommand\makePages{
-  %% ERROR: \pdfName の書き忘れ
-  \ifdefined\@pdfName\else
-    \PackageError{mktoc}
-      {Undefined command `\string\@pdfName'}% error massage
-      {Write `\string\pdfName' command to set loading pdf file name}% help text
-  \fi
-  %% ERROR: file `\@pdfName' does not exist.
-  \IfFileExists\@pdfName\relax%
-    {
-      \PackageError{mktoc}
-        {Cannot find file `\@pdfName'}% error massage
-        {Enter a correct relative path to pdf file}% help text
-    }
-  %%
-  \ifnum \@finalPage > 0
-    %% include no numbering pages
-    \pagenumbering{Roman}
-    \ifnum \@finalPage < \beginFrontPage
-      \includepdf[pages=1-\@finalPage,fitpaper]{\@pdfName}
-    \else
-      \ifnum \@noPages > 0
-        \includepdf[pages=1-\@noPages,fitpaper]{\@pdfName}
-      \fi
-      %% include front pages
-      \pagenumbering{roman}
-      \ifnum \@finalPage < \lastFrontPage
-        \includepdf[pages=\beginFrontPage-\@finalPage,fitpaper]{\@pdfName}
+  \ifdefined\@pdfName
+    %% Including pages
+    \ifnum \@finalPage > 0
+      %% include no numbering pages
+      \pagenumbering{Roman}
+      \ifnum \@finalPage < \beginFrontPage
+        \includepdf[pages=1-\@finalPage,fitpaper]{\@pdfName}
       \else
-        \ifnum \@frontPages > 0
-          \includepdf[pages=\beginFrontPage-\lastFrontPage,fitpaper]{\@pdfName}
+        \ifnum \@noPages > 0
+          \includepdf[pages=1-\@noPages,fitpaper]{\@pdfName}
         \fi
-        %% include main pages
-        \pagenumbering{arabic}
-        \ifnum \@finalPage < 9999
-          \includepdf[pages=\beginMainPage-\@finalPage,fitpaper]{\@pdfName}
+        %% include front pages
+        \pagenumbering{roman}
+        \ifnum \@finalPage < \lastFrontPage
+          \includepdf[pages=\beginFrontPage-\@finalPage,fitpaper]{\@pdfName}
         \else
-          \includepdf[pages=\beginMainPage-,fitpaper]{\@pdfName}
+          \ifnum \@frontPages > 0
+            \includepdf[pages=\beginFrontPage-\lastFrontPage,fitpaper]{\@pdfName}
+          \fi
+          %% include main pages
+          \pagenumbering{arabic}
+          \ifnum \@finalPage < 9999
+            \includepdf[pages=\beginMainPage-\@finalPage,fitpaper]{\@pdfName}
+          \else
+            \includepdf[pages=\beginMainPage-,fitpaper]{\@pdfName}
+          \fi
         \fi
       \fi
     \fi
-  \else
-    \PackageWarning{mktoc}{No pages}
   \fi
 }
 
