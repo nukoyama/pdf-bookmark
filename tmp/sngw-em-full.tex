@@ -1,12 +1,9 @@
-%%
-%%  make bookmark template
-%%
-
-%% typeset: use lualatex
+%% typeset by lualatex
 \documentclass{ltjsbook}
-% \documentclass[uplatex,dvipdfmx]{jsbook}
 
-\usepackage{hyperref}
+\usepackage{mktoc}
+
+%% PDF のメタデータの設定
 \hypersetup{
   % pdfusetitle, % derive the values for pdftitle and pdfauthor from \title and \author
   pdftitle={理論電磁気学 第3版},
@@ -17,34 +14,37 @@
   pdfkeywords={電磁気学, 砂川},
   bookmarksopen, % open up bookmark tree
 }
-\usepackage{bookmark}
-\usepackage{pdfpages}
 
-\usepackage{mybookmark}
-
-%% enter pdf name
+%% 読み込むPDFの名前（相対パス）を入力。
 \pdfName{src/sngwEM-original_ocr.pdf}
 
-%% enter front page num
-\noPages{6}      % 表紙からページ番号が始まる(front)までのページ数
-\frontPages{10}   % frontのページ数
-% \finalPage{15} % if no need, please comment out
+%% 表紙からページ番号が始まる(front)までのページ数。
+%% 大文字ローマ数字でナンバリング。
+\noPages{6}
+
+%% front部分のページ数。
+%% 小文字ローマ数字でナンバリング。
+\frontPages{10}
+
+%% 何ページ目まで読み込むかを指定。
+%% 全ページ読み込む場合は、コメントアウトする。
+% \finalPage{25}
 
 \begin{document}
 
-%% include pdf, and make page numbers
+%% PDFを読み込む
 \makePages
 
-%% -- make bookmark --
+%% --- 目次 (pdf bookmarks) の付加 ---
 
-%% front of front
+%% \noPages の部分 (Roman)
 \bookmark[level=1,page=1]{表紙（カバー）}
 \bookmark[level=1,page=5]{表紙}
 
-%% front
+%% front (roman)
 \frontbookmark{1}{7}{目次}
 
-%% main
+%% main (arabic)
 \mainbookmark{0}{1}{第1章 真空電磁場の基本法則}
 \mainbookmark{1}{1}{§1 場の概念}
 \mainbookmark{1}{4}{§2 電場と磁場の定義}
