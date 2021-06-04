@@ -32,6 +32,10 @@
 \newcommand\lastFrontPage{\the\numexpr \@noPages+\@frontPages\relax} % frontの終わりページ
 \newcommand\beginMainPage{\the\numexpr \lastFrontPage+1\relax} % mainの開始ページ
 
+%% mainページの開始番号（デフォルトは1）
+\newcommand\pageStartNum[1]{\renewcommand\@pageStartNum{#1}}
+\newcommand\@pageStartNum{1}
+
 \newcommand\makePages{
   \ifdefined\@pdfName
     %% Including pages
@@ -54,6 +58,7 @@
           \fi
           %% include main pages
           \pagenumbering{arabic}
+          \setcounter{page}{\@pageStartNum} % ページの開始番号
           \ifnum \@finalPage < 9999
             \includepdf[pages=\beginMainPage-\@finalPage,fitpaper]{\@pdfName}
           \else
@@ -71,6 +76,6 @@
   \temp{#3}%
 }
 \newcommand\mainbookmark[3]{%
-  \edef\temp{\noexpand\bookmark[page=\the\numexpr \lastFrontPage+#2\relax,level=#1]}%
+  \edef\temp{\noexpand\bookmark[page=\the\numexpr \lastFrontPage+#2-\@pageStartNum+1\relax,level=#1]}%
   \temp{#3}%
 }
