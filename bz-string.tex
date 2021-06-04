@@ -1,0 +1,77 @@
+%%
+%%  making TOC (pdf bookmarks)
+%%
+
+%% typeset by lualatex
+\documentclass{ltjsbook}
+
+\usepackage{mktoc}
+
+%% PDF のメタデータの設定
+\hypersetup{
+  % pdfusetitle, % derive the values for pdftitle and pdfauthor from \title and \author
+  pdftitle={初級講座 弦理論 発展編},
+  pdfauthor={B.ツヴィーバッハ},
+  % pdfsubject={},
+  % pdfcreator={},
+  % pdfproducer={},
+  pdfkeywords={超弦理論},
+  bookmarksopen, % open up bookmark tree
+}
+
+%% 読み込むPDFの名前（相対パス）を入力。
+\pdfName{src/string-1.pdf}
+
+%% 表紙からページ番号が始まる(front)までのページ数。
+%% 大文字ローマ数字でナンバリング。
+\noPages{6}
+
+%% front部分のページ数。
+%% 小文字ローマ数字でナンバリング。
+\frontPages{6}
+
+%% mainページの開始番号（デフォルトは1）
+\pageStartNum{327}
+
+%% 何ページ目まで読み込むかを指定。
+%% 全ページ読み込む場合は、コメントアウトする。
+% \finalPage{30}
+
+\begin{document}
+
+%% PDFを読み込む
+\makePages
+
+%% --- 目次 (pdf bookmarks) の付加 ---
+
+%% \noPages の部分 (Roman)
+\bookmark[level=1,page=1]{表紙（カバー）}
+\bookmark[level=1,page=7]{表紙}
+
+%% front (roman)
+\frontbookmark{1}{3}{目次}
+
+%% main (arabic)
+\mainbookmark{0}{327}{第15章 D-プレインとゲージ場}
+\mainbookmark{0}{353}{第16章 弦のチャージと電荷}
+\mainbookmark{0}{373}{第17章 閉弦のT双対性}
+\mainbookmark{0}{397}{第18章 開弦およびD-プレインのT双対性}
+\mainbookmark{0}{413}{第19章 電磁場を持つD-プレインとT双対性}
+\mainbookmark{0}{431}{第20章 Born-Infeld理論とD-プレインの電磁場}
+\mainbookmark{0}{449}{第21章 弦理論と素粒子物理}
+\mainbookmark{0}{497}{第22章 弦の熱力学とブラックホール}
+\mainbookmark{0}{527}{第23章 強い相互作用とAdS/CFT対応}
+\mainbookmark{0}{571}{第24章 弦の共変な量子化}
+\mainbookmark{0}{595}{第25章 弦の基本的な相互作用とRiemann面}
+\mainbookmark{0}{635}{第26章 弦のダイヤグラムの構造とループ振幅}
+\mainbookmark{0}{665}{参考文献について}
+\mainbookmark{1}{668}{文献リスト}
+\mainbookmark{0}{673}{索引}
+\mainbookmark{0}{677}{奥付}
+
+
+% \mainbookmark{0}{}{}
+% \mainbookmark{1}{}{}
+
+\end{document}
+%% EOF
