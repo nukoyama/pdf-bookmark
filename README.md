@@ -4,4 +4,6 @@
 
 ## なにこれ
 
-LuaLaTeX (Free PDF editor) を使って、PDFにBookmarkを追加するためのtexファイルのテンプレです。
+LuaLaTeXというフリーのPDFエディターを使って、PDFにBookmarkを追加するためのtexファイルのテンプレです。
+
+PDFの結合やロック解除にも使えます。
